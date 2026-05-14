@@ -1,0 +1,20 @@
+# Debian/Ubuntu system dependencies for katana.py
+# Установка: sudo apt-get install -y aircrack-ng xterm systemd wireless-tools iw rfkill pciutils usbutils
+
+# Core aircrack-ng suite
+aircrack-ng
+
+# Terminal emulator for popup windows
+xterm
+
+# Network management (для остановки NetworkManager)
+systemd
+
+# Wireless tools
+wireless-tools
+
+# Optional but recommended
+iw
+rfkill
+pciutils
+usbutils
