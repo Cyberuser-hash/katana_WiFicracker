@@ -1,9 +1,9 @@
 <div align='center'>
 
-<img src=https://github.com/Cyberuser-hash/katana_WiFicracker/blob/main/wcrack.png alt="логотип" width=800 height= 1000>
+<img src=https://github.com/Cyberuser-hash/katana_WiFicracker/blob/main/photo/wcrack.png alt="логотип" width=800 height= 1000>
 
 <h1>Тестирование безопасности Wi-Fi</h1>
-<h4> <span> · </span> <a href="https://github.com/Cyberuser-hash /katana_WiFicracker/blob/master/README.md"> Документация </a> <span> · </span> <a href="https://github.com/Cyberuser-hash /katana_WiFicracker/issues"> Сообщить об ошибке </a> <span> · </span> <a href="https://github.com/Cyberuser-hash /katana_WiFicracker/issues"> Запросить функцию </a> </h4>
+<h4> <span> · </span> <a href="https://github.com/Cyberuser-hash/katana_WiFicracker/blob/master/README.md"> Документация </a> <span> · </span> <a href="https://github.com/Cyberuser-hash/katana_WiFicracker/issues"> Сообщить об ошибке </a> <span> · </span> <a href="https://github.com/Cyberuser-hash/katana_WiFicracker/issues"> Запросить функцию </a> </h4>
 
 </div>
 
@@ -21,8 +21,8 @@
 
 ### :camera: Скриншоты
 
-<div align="center"> <a href=""><img src="https://github.com/Cyberuser-hash/katana_WiFicracker/blob/main/clients.png" alt='изображение' width='800'/></a> </div>
-<div align="center"> <a href=""><img src="https://github.com/Cyberuser-hash/katana_WiFicracker/blob/main/scan.png" alt='изображение' width='800'/></a> </div>
+<div align="center"> <a href=""><img src="https://github.com/Cyberuser-hash/katana_WiFicracker/blob/main/photo/clients.png" alt='изображение' width='800'/></a> </div>
+<div align="center"> <a href=""><img src="https://github.com/Cyberuser-hash/katana_WiFicracker/blob/main/photo/scan.png" alt='изображение' width='800'/></a> </div>
 ### :dart: Возможности
 
 - ✓ Сканирование всех доступных Wi-Fi точек доступа
