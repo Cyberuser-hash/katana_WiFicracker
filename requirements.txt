@@ -1,20 +1,54 @@
-# Debian/Ubuntu system dependencies for katana.py
-# Установка: sudo apt-get install -y aircrack-ng xterm systemd wireless-tools iw rfkill pciutils usbutils
+# ============================================================
+# DEPENDENCIES FOR KATANA.PY (Wi-Fi Pentesting Tool)
+# ============================================================
+# Installation: sudo apt-get update && sudo apt-get install -y [packages]
+# For Debian/Ubuntu/Kali Linux
 
-# Core aircrack-ng suite
-aircrack-ng
+# ============================================================
+# CORE AIRCRACK-NG SUITE (required)
+# ============================================================
+aircrack-ng          # airodump-ng, aireplay-ng, airmon-ng
 
-# Terminal emulator for popup windows
-xterm
+# ============================================================
+# HCXTOOLS (for handshake to hashcat format conversion)
+# ============================================================
+hcxtools             # hcxpcapngtool
 
-# Network management (для остановки NetworkManager)
-systemd
+# ============================================================
+# HASHCAT (for WPA/WPA2 handshake bruteforce)
+# ============================================================
+hashcat              # bruteforce handshake (mode 22000)
 
-# Wireless tools
-wireless-tools
+# ============================================================
+# TERMINAL EMULATOR (for popup windows)
+# ============================================================
+xterm                # popup windows for airodump, aireplay, etc.
 
-# Optional but recommended
-iw
-rfkill
-pciutils
-usbutils
+# ============================================================
+# NETWORK MANAGEMENT (for stopping NetworkManager)
+# ============================================================
+systemd              # systemctl stop NetworkManager
+NetworkManager       # network connection management
+wpa_supplicant       # for stopping/pkill
+
+# ============================================================
+# WIRELESS TOOLS (adapter management)
+# ============================================================
+wireless-tools       # iwconfig, iwlist
+iw                   # iw dev (channel settings)
+rfkill               # wifi blocking management
+pciutils             # lspci (detect wifi adapter)
+usbutils             # lsusb (detect USB adapter)
+
+# ============================================================
+# BASE SYSTEM UTILITIES (usually pre-installed)
+# ============================================================
+iproute2             # ip command (ip link, ip address)
+procps               # pkill command
+sudo                 # privilege escalation
+coreutils            # rm, clear and other basic utilities
+
+# ============================================================
+# QUICK INSTALL COMMAND (copy and paste into terminal)
+# ============================================================
+# sudo apt-get update && sudo apt-get install -y aircrack-ng hcxtools hashcat xterm systemd wireless-tools iw rfkill pciutils usbutils iproute2 procps
